@@ -2399,10 +2399,37 @@ void TestLeetCode4086(void)
     Logger::WriteMessage("result = " + to_string(result));
 }
 
+void TestLeetCode4101(void)
+{
+    Logger::WriteMessage("Test Leet Code 4101");
+    LeetCodeGreedy leetCode;
+    vector<int> nums = { 3, 9, 7 };
+    int lower = 1, upper = 12;
+    vector<vector<int>> result = leetCode.findDisappearedNumbersIII(nums, lower, upper);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("low = " + to_string(lower) + ", upper = " + to_string(upper));
+    Logger::WriteMessage(result);
+
+    nums = { 1, 1, 1000000000 };
+    lower = 5, upper = 1000000000;
+    result = leetCode.findDisappearedNumbersIII(nums, lower, upper);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("low = " + to_string(lower) + ", upper = " + to_string(upper));
+    Logger::WriteMessage(result);
+
+    nums = {2, 3, 5};
+    lower = 2, upper = 3;
+    result = leetCode.findDisappearedNumbersIII(nums, lower, upper);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("low = " + to_string(lower) + ", upper = " + to_string(upper));
+    Logger::WriteMessage(result);
+}
+
 
 void TestLeetCodeGreedy(void)
 {
     Logger::WriteMessage("Test Leet Code Greedy");
+    TestLeetCode4101();
     TestLeetCode4086();
     TestLeetCode4056();
     TestLeetCode4031();

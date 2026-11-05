@@ -4103,6 +4103,122 @@ public:
     /// </summary>
     int minDeletions(vector<int>& nums);
 
+    /// <summary>
+    /// Leet code #4092. Binary Digit Score
+    /// 
+    /// Easy
+    /// 
+    /// You are given two integers a and b.
+    /// Let s1 and s2 be the number of set bits in the binary representations 
+    /// of a and b, respectively.
+    ///
+    /// The score of these integers is defined as follows :
+    ///
+    /// If s1 >= s2, the score is s1* s2.
+    /// Otherwise, the score is s2 / s1 using integer division.
+    /// Return an integer representing the score of a and b.
+    ///
+    /// A set bit refers to a bit in the binary representation of a number 
+    /// that has a value of 1.
+    /// 
+    /// Example 1:
+    /// Input: a = 14, b = 6
+    /// Output : 6
+    /// Explanation :
+    /// The binary representation of a = 14 is "1110", so s1 = 3.
+    /// The binary representation of b = 6 is "110", so s2 = 2.
+    /// Since s1 > s2, the score of a and b is s1 * s2 = 3 * 2 = 6.
+    ///
+    /// Example 2:
+    /// Input: a = 5, b = 15
+    /// Output : 2
+    /// Explanation :
+    /// The binary representation of a = 5 is "101", so s1 = 2.
+    /// The binary representation of b = 15 is "1111", so s2 = 4.
+    /// Since s1 < s2, the score of a and b is s2 / s1 = 4 / 2 = 2.
+    ///
+    /// Example 3 :
+    /// Input : a = 10, b = 12
+    /// Output : 4
+    /// Explanation :
+    /// The binary representation of a = 10 is "1010", so s1 = 2.
+    /// The binary representation of b = 12 is "1100", so s2 = 2.
+    /// Since s1 == s2, the score of a and b is s1 * s2 = 2 * 2 = 4.
+    ///
+    /// Constraints :
+    /// 1. 1 <= a, b <= 100
+    /// </summary>
+    int calculateScore(int a, int b);
+
+    /// <summary>
+    /// Leet code #4100. Minimum Cost Path With Even XOR Parity
+    /// 
+    /// Hard
+    ///
+    /// You are given a tree with n nodes numbered from 0 to n - 1, 
+    /// represented by a 2D integer array edges.Each edges[i] = [ui, vi, ci] 
+    /// represents an edge between nodes ui and vi with cost ci.
+    ///
+    /// You are also given an integer array values of length n, where 
+    /// values[i] is the value of node i.
+    ///
+    /// A path between two distinct nodes is Balanced - XOR if the bitwise XOR 
+    /// of the values of all nodes on the path, including both endpoints, has 
+    /// an even number of set bits.
+    ///
+    /// The cost of a path is the sum of its edge costs.
+    ///
+    /// Return the minimum cost of a Balanced - XOR path.If no such path 
+    /// exists, return -1.
+    ///
+    /// The number 0 has zero set bits.
+    ///
+    /// Example 1:
+    /// Input: edges = [[0, 1, 4], [0, 2, 6], [0, 3, 3], [3, 4, 5]], 
+    /// values = [3, 1, 7, 1, 3]
+    /// Output : 7
+    /// Explanation :
+    /// Balanced - XOR Path  XOR Value  Total Cost
+    /// 1 - 0 - 2  1 XOR 3 XOR 7 = 5  4 + 6 = 10
+    /// 1 - 0 - 3  1 XOR 3 XOR 1 = 3  4 + 3 = 7
+    /// 1 - 0 - 3 - 4  1 XOR 3 XOR 1 XOR 3 = 0  4 + 3 + 5 = 12
+    /// 2 - 0 - 3  7 XOR 3 XOR 1 = 5  6 + 3 = 9
+    /// 2 - 0 - 3 - 4  7 XOR 3 XOR 1 XOR 3 = 6  6 + 3 + 5 = 14
+    /// The minimum cost is 7, achieved by the path 1 - 0 - 3. Thus, the 
+    /// answer is 7.
+    ///
+    /// Example 2:
+    /// Input: edges = [[0, 1, 5], [1, 2, 10]], values = [1, 7, 3]
+    /// Output : 5
+    /// Explanation :
+    /// Balanced - XOR Path  XOR Value  Total Cost
+    /// 0 - 1  1 XOR 7 = 6  5
+    /// 0 - 1 - 2  1 XOR 7 XOR 3 = 5  5 + 10 = 15
+    /// The minimum cost is 5, achieved by the path 0 - 1. Thus, the 
+    /// answer is 5.
+    ///
+    /// Example 3:
+    /// Input: edges = [[0, 1, 5], [0, 2, 7], [0, 3, 9]], 
+    /// values = [1, 3, 5, 9]
+    /// Output : -1
+    /// Explanation :
+    /// Every path between two distinct nodes has an XOR value with an 
+    /// odd number of set bits.
+    /// Therefore, no Balanced - XOR path exists, so the answer is - 1.
+    ///
+    /// Constraints :
+    /// 1. 2 <= n <= 10^5
+    /// 2. edges.length == n - 1
+    /// 3. edges[i] = [ui, vi, ci]
+    /// 4. 0 <= ui, vi <= n - 1
+    /// 5. 1 <= ci <= 109
+    /// 6. values.length == n
+    /// 7. 1 <= values[i] <= 10^9
+    /// 8. edges represents a valid tree.
+    /// 1. 1 <= a, b <= 100
+    /// </summary>
+    int minActivationCost(vector<vector<int>>& edges, vector<int>& values);
+
 #pragma endregion
 };
 #endif  // LeetCodeBit_H

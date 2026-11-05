@@ -17903,4 +17903,134 @@ int LeetCodeTree::findColoredRoot(vector<vector<int>>& edges, string colors)
     }
     return root;
 }
+
+
+/// <summary>
+/// Leet code #4100. Minimum Cost Path With Even XOR Parity
+/// </summary>
+void LeetCodeTree::minActivationCost(vector<vector<pair<int, int>>>& neighbors, int parent, int node,
+    vector<int>& values, vector<long long>& min_cost, vector<long long>& result_cost)
+{
+    int bit_count = bitCount(values[node]) % 2;
+    for (size_t i = 0; i < neighbors[node].size(); i++)
+    {
+        int child = neighbors[node][i].first;
+        if (child == parent) continue;
+        vector<long long> child_cost(2, LLONG_MAX);
+        int child_bit_count = bitCount(values[child]) % 2;
+        minActivationCost(neighbors, node, child, values, child_cost, result_cost);
+        vector<long long> new_child_cost(2, LLONG_MAX);
+        for (int p = 0; p < 2; p++)
+        {
+            if (child_cost[p] != LLONG_MAX)
+            {
+                int parity = (p + bit_count) % 2;
+                new_child_cost[parity] = (long long)child_cost[p] + neighbors[node][i].second;
+            }
+        }
+        child_cost = new_child_cost;
+        int parity = (child_bit_count + bit_count) % 2;
+        child_cost[parity] = min(child_cost[parity], (long long)neighbors[node][i].second);
+        for (int p1 = 0; p1 < 2; p1++)
+        {
+            if (min_cost[p1] == LLONG_MAX) continue;
+            for (int p2 = 0; p2 < 2; p2++)
+            {
+                if (child_cost[p2] != LLONG_MAX)
+                {
+                    int parity = (p1 + p2 + bit_count) % 2;
+                    result_cost[parity] = min(result_cost[parity],
+                        min_cost[p1] + child_cost[p2]);
+                }
+            }
+        }
+        for (int p = 0; p < 2; p++)
+        {
+            min_cost[p] = min(min_cost[p], child_cost[p]);
+            result_cost[p] = min(result_cost[p], min_cost[p]);
+        }
+    }
+}
+
+/// <summary>
+/// Leet code #4100. Minimum Cost Path With Even XOR Parity
+/// 
+/// Hard
+///
+/// You are given a tree with n nodes numbered from 0 to n - 1, 
+/// represented by a 2D integer array edges.Each edges[i] = [ui, vi, ci] 
+/// represents an edge between nodes ui and vi with cost ci.
+///
+/// You are also given an integer array values of length n, where 
+/// values[i] is the value of node i.
+///
+/// A path between two distinct nodes is Balanced - XOR if the bitwise XOR 
+/// of the values of all nodes on the path, including both endpoints, has 
+/// an even number of set bits.
+///
+/// The cost of a path is the sum of its edge costs.
+///
+/// Return the minimum cost of a Balanced - XOR path.If no such path 
+/// exists, return -1.
+///
+/// The number 0 has zero set bits.
+///
+/// Example 1:
+/// Input: edges = [[0, 1, 4], [0, 2, 6], [0, 3, 3], [3, 4, 5]], 
+/// values = [3, 1, 7, 1, 3]
+/// Output : 7
+/// Explanation :
+/// Balanced - XOR Path  XOR Value  Total Cost
+/// 1 - 0 - 2  1 XOR 3 XOR 7 = 5  4 + 6 = 10
+/// 1 - 0 - 3  1 XOR 3 XOR 1 = 3  4 + 3 = 7
+/// 1 - 0 - 3 - 4  1 XOR 3 XOR 1 XOR 3 = 0  4 + 3 + 5 = 12
+/// 2 - 0 - 3  7 XOR 3 XOR 1 = 5  6 + 3 = 9
+/// 2 - 0 - 3 - 4  7 XOR 3 XOR 1 XOR 3 = 6  6 + 3 + 5 = 14
+/// The minimum cost is 7, achieved by the path 1 - 0 - 3. Thus, the 
+/// answer is 7.
+///
+/// Example 2:
+/// Input: edges = [[0, 1, 5], [1, 2, 10]], values = [1, 7, 3]
+/// Output : 5
+/// Explanation :
+/// Balanced - XOR Path  XOR Value  Total Cost
+/// 0 - 1  1 XOR 7 = 6  5
+/// 0 - 1 - 2  1 XOR 7 XOR 3 = 5  5 + 10 = 15
+/// The minimum cost is 5, achieved by the path 0 - 1. Thus, the 
+/// answer is 5.
+///
+/// Example 3:
+/// Input: edges = [[0, 1, 5], [0, 2, 7], [0, 3, 9]], 
+/// values = [1, 3, 5, 9]
+/// Output : -1
+/// Explanation :
+/// Every path between two distinct nodes has an XOR value with an 
+/// odd number of set bits.
+/// Therefore, no Balanced - XOR path exists, so the answer is - 1.
+///
+/// Constraints :
+/// 1. 2 <= n <= 10^5
+/// 2. edges.length == n - 1
+/// 3. edges[i] = [ui, vi, ci]
+/// 4. 0 <= ui, vi <= n - 1
+/// 5. 1 <= ci <= 10^9
+/// 6. values.length == n
+/// 7. 1 <= values[i] <= 10^9
+/// 8. edges represents a valid tree.
+/// 1. 1 <= a, b <= 100
+/// </summary>
+int LeetCodeTree::minActivationCost(vector<vector<int>>& edges, vector<int>& values)
+{
+    vector<vector<pair<int, int>>> neighbors(values.size());
+    for (size_t i = 0; i < edges.size(); i++)
+    {
+        neighbors[edges[i][0]].push_back( {edges[i][1], edges[i][2]} );
+        neighbors[edges[i][1]].push_back( {edges[i][0], edges[i][2]} );
+    }
+    vector<long long> min_cost(2, LLONG_MAX);
+    vector<long long> result_cost(2, LLONG_MAX);
+    minActivationCost(neighbors, -1, 0, values, min_cost, result_cost);
+    return result_cost[0] == LLONG_MAX ? -1 : (int)result_cost[0];
+}
+
 #pragma endregion

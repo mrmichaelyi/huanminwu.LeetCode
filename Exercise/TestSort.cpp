@@ -5181,8 +5181,41 @@ void TestLeetCode4025(void)
     Logger::WriteMessage("result = " + to_string(result));
 }
 
+void TestLeetCode4099(void)
+{
+    Logger::WriteMessage("Test Leet Code 4099");
+    LeetCodeSort leetCode;
+    vector<int> nums = {2, 1, 3, 4};
+    vector<int> locked = {0, 1, 0, 1};
+    int k = 2;
+    int result = leetCode.minOperationsSortLockedIndices(nums, locked, k);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage(locked);
+    Logger::WriteMessage("k = " + to_string(k));
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = {3, 1, 2};
+    locked = {1, 0, 1};
+    k = 2;
+    result = leetCode.minOperationsSortLockedIndices(nums, locked, k);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage(locked);
+    Logger::WriteMessage("k = " + to_string(k));
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = {2, 3, 1};
+    locked = {1, 0, 0};
+    k = 0;
+    result = leetCode.minOperationsSortLockedIndices(nums, locked, k);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage(locked);
+    Logger::WriteMessage("k = " + to_string(k));
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
 void TestLeetCodeSort(void)
 {
+    TestLeetCode4099();
     TestLeetCode4025();
     TestLeetCode4014();
     TestLeetCode4001();

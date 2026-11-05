@@ -70,4 +70,5 @@ void TestLeetCode3955(void);
 void TestLeetCode4059(void);
 void TestLeetCode4047(void);
 void TestLeetCode4083(void);
+void TestLeetCode4092(void);
 #endif  // TestA

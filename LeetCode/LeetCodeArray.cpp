@@ -47937,4 +47937,488 @@ vector<int> LeetCodeArray::maxProductPair(vector<int>& nums, int target)
     return result;
 }
 
+/// <summary>
+/// Leet Code #4088. Difference Between Peaks and Valleys
+/// 
+/// Easy
+/// 
+/// You are given an integer array nums of length n.
+/// An index i is called a peak if all of the following conditions hold :
+/// 0 < i < n - 1
+/// nums[i] > nums[i - 1]
+/// nums[i] > nums[i + 1]
+///
+/// An index i is called a valley if all of the following conditions hold :
+/// 0 < i < n - 1
+/// nums[i] < nums[i - 1]
+/// nums[i] < nums[i + 1]
+/// Return an integer denoting the difference between the sum of all peak 
+/// values and the sum of all valley values.
+///
+/// Example 1:
+/// Input: nums = [1, 5, 2, 4, 1, 3, 0]
+/// Output : 9
+/// Explanation :
+/// The peak values are nums[1] = 5, nums[3] = 4, and nums[5] = 3.
+/// The valley values are nums[2] = 2 and nums[4] = 1.
+/// The difference between the sum of the peak values and the sum of the 
+/// valley values is(5 + 4 + 3) - (2 + 1) = 9. Hence, the answer is 9.
+///
+/// Example 2 :
+/// Input : nums = [-5, -6, -1, -2, 5, 3, 2]
+/// Output : 12
+/// Explanation :
+/// The peak values are nums[2] = -1 and nums[4] = 5.
+/// The valley values are nums[1] = -6 and nums[3] = -2.
+/// The difference between the sum of the peak values and the sum of the 
+/// valley values is(-1 + 5) - (-6 + (-2)) = 12. Hence, the answer is 12.
+/// 
+/// Example 3 :
+/// Input : nums = [6, 5, 2, 5, 5, 3, 6]
+/// Output : -5
+/// Explanation :
+/// There are no peak values in the array.
+/// The valley values are nums[2] = 2 and nums[5] = 3.
+/// The difference between the sum of the peak values and the sum of the 
+/// valley values is(0) - (2 + 3) = -5. Hence, the answer is - 5.
+///
+/// Constraints :
+/// 1. 3 <= n == nums.length <= 100
+/// 2. - 100 <= nums[i] <= 100
+/// </summary>
+int LeetCodeArray::peakValleyDifference(vector<int>& nums)
+{
+    int peak_sum = 0, valley_sum = 0;
+    for (size_t i = 1; i < nums.size() - 1; i++)
+    {
+        if (nums[i] > nums[i - 1] && nums[i] > nums[i + 1])
+        {
+            peak_sum += nums[i];
+        }
+        else if (nums[i] < nums[i - 1] && nums[i] < nums[i + 1])
+        {
+            valley_sum += nums[i];
+        }
+    }
+    return peak_sum - valley_sum;
+}
+
+/// <summary>
+/// Leet Code #4094. Count Frequency Staircase Subarrays I
+/// 
+/// Medium
+/// 
+/// You are given an integer array nums.
+///
+/// Consider the distinct values of a subarray in the order in which 
+/// they first appear.
+///
+/// If there are k distinct values, the subarray is called a 
+/// frequency staircase if the first distinct value occurs exactly once, 
+/// the second distinct value occurs exactly twice, and so on, with the 
+/// kth distinct value occurring exactly k times.
+/// Equivalently, the frequencies of the distinct values, in the order of 
+/// their first occurrence, must be exactly 1, 2, 3, ..., k.
+///
+/// Return the number of frequency staircase subarrays in nums.
+///
+/// A subarray is a contiguous non - empty sequence of elements within an 
+/// array.
+///
+/// The frequency of a value in a subarray is the number of times it 
+/// occurs in that subarray.
+///
+/// Example 1:
+/// Input: nums = [5, 8, 8, 2, 2, 2]
+/// Output : 9
+/// Explanation :
+/// Every single - element subarray has frequencies[1], and there are 6 of 
+/// them. 3 longer subarrays also qualify :
+/// Subarray	Values by first appearance	Frequencies
+/// nums[0...2] = [5, 8, 8]	5, then 8[1, 2]
+/// nums[2...4] = [8, 2, 2]	8, then 2[1, 2]
+/// nums[0...5] = [5, 8, 8, 2, 2, 2]	5, then 8, then 2[1, 2, 3]
+/// So the answer is 6 + 3 = 9.
+///
+/// Example 2:
+/// Input: nums = [6, 6, 9, 9]
+/// Output : 5
+/// Explanation :
+/// Every single - element subarray has frequencies[1], and there are 4 of 
+/// them. 1 longer subarray also qualifies :
+/// Subarray	Values by first appearance	Frequencies
+/// nums[1...3] = [6, 9, 9]	6, then 9[1, 2]
+/// So the answer is 4 + 1 = 5.
+///
+/// Example 3:
+/// Input: nums = [2, 3, 4, 4, 3, 4]
+/// Output : 8
+/// Explanation :
+/// Every single - element subarray has frequencies[1], and there are 6 of 
+/// them. 2 longer subarrays also qualify :
+/// Subarray	Values by first appearance	Frequencies
+/// nums[1...3] = [3, 4, 4]	3, then 4[1, 2]
+/// nums[0...5] = [2, 3, 4, 4, 3, 4]	2, then 3, then 4[1, 2, 3]
+/// So the answer is 6 + 2 = 8.
+///
+/// Constraints:
+/// 1. 1 <= nums.length <= 1500
+/// 2. 1 <= nums[i] <= 10
+/// </summary>
+int LeetCodeArray::countStaircaseI(vector<int>& nums)
+{
+    int result = 0;
+    for (size_t i = 0; i < nums.size(); i++)
+    {
+        unordered_map<int, int> num_count;
+        vector<int> distinct_num;
+        for (size_t j = i; j < nums.size(); j++)
+        {
+            if (num_count.find(nums[j]) == num_count.end())
+            {
+                distinct_num.push_back(nums[j]);
+            }
+            num_count[nums[j]]++;
+            for (size_t k = 0; k < distinct_num.size(); k++)
+            {
+                if (num_count[distinct_num[k]] != (int)(k + 1))
+                {
+                    break;
+                }
+                if (k == distinct_num.size() - 1)
+                {
+                    result++;
+                }
+            }
+        }
+    }
+    return result;
+}
+
+
+/// <summary>
+/// Leet Code #4095. Count Frequency Staircase Subarrays II
+/// 
+/// Hard
+/// 
+/// You are given an integer array nums.
+///
+/// Consider the distinct values of a subarray in the order in which they 
+/// first appear.
+///
+/// If there are k distinct values, the subarray is called a frequency 
+/// staircase if the first distinct value occurs exactly once, the second 
+/// distinct value occurs exactly twice, and so on, with the kth distinct 
+/// value occurring exactly k times.
+/// Equivalently, the frequencies of the distinct values, in the order of 
+/// their first occurrence, must be exactly 1, 2, 3, ..., k.
+///
+/// Return the number of frequency staircase subarrays in nums.
+/// 
+/// A subarray is a contiguous non - empty sequence of elements within an 
+/// array.
+///
+/// The frequency of a value in a subarray is the number of times it 
+/// occurs in that subarray.
+///
+/// Example 1:
+/// Input: nums = [5, 8, 8, 2, 2, 2]
+/// Output : 9
+/// Explanation :
+/// Every single - element subarray has frequencies[1], and there are 6 
+/// of them. 3 longer subarrays also qualify :
+///
+/// Subarray  Values by first appearance  Frequencies
+/// nums[0...2] = [5, 8, 8]  5, then 8[1, 2]
+/// nums[2...4] = [8, 2, 2]  8, then 2[1, 2]
+/// nums[0...5] = [5, 8, 8, 2, 2, 2]  5, then 8, then 2[1, 2, 3]
+/// So the answer is 6 + 3 = 9.
+///
+/// Example 2:
+/// Input: nums = [6, 6, 9, 9]
+/// Output : 5
+/// Explanation :
+/// Every single - element subarray has frequencies[1], and there are 4 
+/// of them. 1 longer subarray also qualifies :
+/// 
+/// Subarray  Values by first appearance  Frequencies
+/// nums[1...3] = [6, 9, 9]  6, then 9[1, 2]
+/// So the answer is 4 + 1 = 5.
+/// Example 3:
+/// Input: nums = [2, 3, 4, 4, 3, 4]
+/// Output : 8
+/// Explanation :
+/// Every single - element subarray has frequencies[1], and there are 6 
+/// of them. 2 longer subarrays also qualify :
+/// Subarray  Values by first appearance  Frequencies
+/// nums[1...3] = [3, 4, 4]  3, then 4[1, 2]
+/// nums[0...5] = [2, 3, 4, 4, 3, 4]  2, then 3, then 4[1, 2, 3]
+/// So the answer is 6 + 2 = 8.
+///
+/// Constraints:
+/// 1. 1 <= nums.length <= 5 * 10^4
+/// 2. 1 <= nums[i] <= 10^5
+/// </summary>
+int LeetCodeArray::countStaircaseII(vector<int>& nums)
+{
+    int max_distinct = 1;
+    int n = nums.size();
+    // calculate max distinct number
+    while (max_distinct * (max_distinct + 1) < 2 * n)
+    {
+        max_distinct++;
+    }
+    int max_num = *max_element(nums.begin(), nums.end());
+    vector<int> freq(max_num + 1, 0), reqFreq(max_num + 1, 0);
+    int result = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        int distinct = 0;
+        int processed = 0;
+        int matched = 0;
+        for (int j = i; j < n; j++)
+        {
+            int d = nums[j];
+            if (freq[d] == 0)
+            {
+                distinct++; // new encountered 
+                if (distinct > max_distinct) break; // early exit 
+                reqFreq[d] = distinct;
+            }
+            freq[d]++;
+            processed = j; // processed till here. 
+            if (freq[d] > reqFreq[d]) break; // early exit - not possible  
+            if (freq[d] == reqFreq[d]) matched++;
+            if (matched == distinct) result++;
+        }
+        // reset from i ... processed 
+        for (int j = i; j <= processed; j++)
+        {
+            freq[nums[j]] = 0;
+        }
+    }
+    return result;
+}
+
+/// <summary>
+/// Leet Code #4090. Count Magical Substring Pairs I
+/// 
+/// Medium
+/// 
+/// You are given a string s of length n consisting of lowercase English 
+/// letters.
+///
+/// For every triplet of indices(i, j, k) satisfying 0 <= i <= j < k < n, 
+/// define:
+///
+/// s1 = s[i..j]
+/// s2 = s[j + 1..k]
+/// A pair of substrings(s1, s2) is called magical if the number of 
+/// distinct characters in s1 is equal to the number of distinct 
+/// characters in s2.
+/// Return the number of triplets(i, j, k) for which(s1, s2) is a magical 
+/// pair.
+///
+/// A substring is a contiguous non - empty sequence of characters within 
+/// a string.
+///
+/// Example 1:
+/// Input: s = "aba"
+/// Output : 2
+/// Explanation :
+/// There are 2 valid triplets :
+/// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+/// 1  (0, 0, 1)  "a"  "b"  1  1
+/// 2  (1, 1, 2)  "b"  "a"  1  1
+///
+/// Example 2 :
+/// Input : s = "kkk"
+/// Output : 4
+/// Explanation :
+/// There are 4 valid triplets :
+/// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+/// 1  (0, 0, 1)  "k"  "k"  1  1
+/// 2  (0, 0, 2)  "k"  "kk"  1  1
+/// 3  (0, 1, 2)  "kk"  "k"  1  1
+/// 4  (1, 1, 2)  "k"  "k"  1  1
+///
+/// Example 3:
+/// Input: s = "abcac"
+/// Output : 7
+/// Explanation :
+/// There are 7 valid triplets :
+///
+/// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+/// 1  (0, 0, 1)  "a"  "b"  1  1
+/// 2  (1, 1, 2)  "b"  "c"  1  1
+/// 3  (2, 2, 3)  "c"  "a"  1  1
+/// 4  (3, 3, 4)  "a"  "c"  1  1
+/// 5  (0, 1, 3)  "ab"  "ca"  2  2
+/// 6  (0, 1, 4)  "ab"  "cac"  2  2
+/// 7  (1, 2, 4)  "bc"  "ac"  2  2
+///
+/// Constraints:
+/// 1. 2 <= s.length <= 2000
+/// 2. s consists of lowercase English letters.
+/// </summary>
+int LeetCodeArray::countMagicalPairsI(string s)
+{
+    int n = s.size();
+    vector<int> char_pos(26, -1);
+    map<int, char> heap;
+    vector<vector<int>> dp_count(n, vector<int>(26, 0));
+    vector<vector<int>> accumulate_count(n + 1, vector<int>(26, 0));
+    vector<vector<pair<int, int>>> dp_range(n, vector<pair<int, int>>(26, {-1, -1}));
+    int result = 0;
+    heap[-1] = '#';
+    for (int i = 0; i < n; i++)
+    {
+        int char_index = s[i] - 'a';
+        if (char_pos[char_index] != -1)
+        {
+            heap.erase(char_pos[char_index]);
+        }
+        char_pos[char_index] = i;
+        heap.insert({i, s[i]});
+        int end = 0;
+        int index = 0;
+        for (auto itr = heap.rbegin(); itr != heap.rend(); ++itr)
+        {
+            if (itr->first != i)
+            {
+                int start = itr->first;
+                dp_count[i][index] = end - start;
+                accumulate_count[i + 1][index] = accumulate_count[i][index] + dp_count[i][index];
+                dp_range[i][index] = { start, end };
+                index++;
+            }
+            end = itr->first;
+        }
+        for (int index = 0; index < 26; index++)
+        {
+            if (dp_count[i][index] == 0) break;
+            if (dp_range[i][index].first == -1)
+            {
+                result += accumulate_count[dp_range[i][index].second][index];
+            }
+            else
+            {
+                result += accumulate_count[dp_range[i][index].second][index] - accumulate_count[dp_range[i][index].first][index];
+            }
+        }
+    }
+    return result;
+}
+
+/// <summary>
+/// Leet Code #4091. Count Magical Substring Pairs II
+/// 
+/// Hard
+///     
+/// You are given a string s of length n consisting of lowercase English 
+/// letters.
+///
+/// For every triplet of indices(i, j, k) satisfying 0 <= i <= j < k < n, 
+/// define:
+///
+/// s1 = s[i..j]
+/// s2 = s[j + 1..k]
+/// A pair of substrings(s1, s2) is called magical if the number of 
+/// distinct characters in s1 is equal to the number of distinct 
+/// characters in s2.
+///
+/// Return the number of triplets(i, j, k) for which(s1, s2) is a magical 
+/// pair.
+///
+/// A substring is a contiguous non - empty sequence of characters within 
+/// a string.
+///
+/// Example 1:
+/// Input: s = "aba"
+/// Output : 2
+/// Explanation :
+/// There are 2 valid triplets :
+/// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+/// 1  (0, 0, 1)  "a"  "b"  1  1
+/// 2  (1, 1, 2)  "b"  "a"  1  1
+/// 
+/// Example 2 :
+/// Input : s = "kkk"
+/// Output : 4
+/// Explanation :
+/// There are 4 valid triplets :
+/// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+/// 1  (0, 0, 1)  'k'  'k'  1  1
+/// 2  (0, 0, 2)  "k"  "kk"  1  1
+/// 3  (0, 1, 2)  "kk"  "k"  1  1
+/// 4  (1, 1, 2)  "k"  "k"  1  1
+///
+/// Example 3:
+/// Input: s = "abcac"
+/// Output : 7
+/// Explanation :
+/// There are 7 valid triplets :
+/// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+/// 1  (0, 0, 1)  "a"  "b"  1  1
+/// 2  (1, 1, 2)  "b"  "c"  1  1
+/// 3  (2, 2, 3)  "c"  "a"  1  1
+/// 4  (3, 3, 4)  "a"  "c"  1  1
+/// 5  (0, 1, 3)  "ab"  "ca"  2  2
+/// 6  (0, 1, 4)  "ab"  "cac"  2  2
+/// 7  (1, 2, 4)  "bc"  "ac"  2  2
+///
+/// Constraints:
+/// 1. 2 <= s.length <= 10^5
+/// 2. s consists of lowercase English letters.
+/// </summary>
+long long LeetCodeArray::countMagicalPairsII(string s)
+{
+    int n = s.size();
+    vector<int> char_pos(26, -1);
+    map<int, char> heap;
+    vector<vector<int>> dp_count(n, vector<int>(26, 0));
+    vector<vector<long long>> accumulate_count(n + 1, vector<long long>(26, 0));
+    vector<vector<pair<int, int>>> dp_range(n, vector<pair<int, int>>(26, { -1, -1 }));
+    long long result = 0;
+    heap[-1] = '#';
+    for (int i = 0; i < n; i++)
+    {
+        int char_index = s[i] - 'a';
+        if (char_pos[char_index] != -1)
+        {
+            heap.erase(char_pos[char_index]);
+        }
+        char_pos[char_index] = i;
+        heap.insert({ i, s[i] });
+        int end = 0;
+        int index = 0;
+        for (auto itr = heap.rbegin(); itr != heap.rend(); ++itr)
+        {
+            if (itr->first != i)
+            {
+                int start = itr->first;
+                dp_count[i][index] = end - start;
+                accumulate_count[i + 1][index] = accumulate_count[i][index] + dp_count[i][index];
+                dp_range[i][index] = { start, end };
+                index++;
+            }
+            end = itr->first;
+        }
+        for (int index = 0; index < 26; index++)
+        {
+            if (dp_count[i][index] == 0) break;
+            if (dp_range[i][index].first == -1)
+            {
+                result += accumulate_count[dp_range[i][index].second][index];
+            }
+            else
+            {
+                result += accumulate_count[dp_range[i][index].second][index] - accumulate_count[dp_range[i][index].first][index];
+            }
+        }
+    }
+    return result;
+}
+
 #pragma endregion

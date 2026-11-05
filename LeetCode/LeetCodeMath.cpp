@@ -32408,7 +32408,7 @@ int LeetCodeMath::countGoodStrings(long long n)
         b = countGoodStrings_mul(b, b);
         n >>= 1;
     }
-    int res = (mat[0][1] * 2) % mod;
+    int res = (int)((mat[0][1] * 2) % mod);
     return res;
 }
 
@@ -32546,5 +32546,202 @@ vector<int> LeetCodeMath::maxPrimesI(int n, int s)
     }
     return result;
 }
+
+/// <summary>
+/// 4093. Maximize Sum After At Most K Digit Rearrangements
+///
+/// Medium
+///
+/// You are given an integer array nums of length n and an integer k.
+///
+/// In one operation, you may choose any element of nums and rearrange 
+/// its decimal digits in any order to form a new integer.
+///
+/// Return the maximum possible sum of the array after performing at 
+/// most k operations.
+///
+/// Example 1:
+/// Input: nums = [123, 45], k = 1
+/// Output : 366
+/// Explanation :
+/// We choose nums[0] = 123 and rearrange its digits to form 321.
+/// The array becomes[321, 45].Thus, the total sum is 321 + 45 = 366.
+///
+/// Example 2 :
+/// Input : nums = [102, 90, 14], k = 2
+/// Output : 341
+/// Explanation :
+/// We choose nums[0] = 102 and rearrange its digits to form 210.
+/// We choose nums[2] = 14 and rearrange its digits to form 41.
+/// The array becomes[210, 90, 41].Thus, the total sum is 
+/// 210 + 90 + 41 = 341.
+///
+/// Constraints :
+/// 1. 1 <= n == nums.length <= 10^5
+/// 2. 1 <= nums[i] <= 10^9
+/// 3. 1 <= k <= n
+/// </summary>
+long long LeetCodeMath::maximizeSumReplaceKDigits(vector<int>& nums, int k)
+{
+    vector<long long> sorted_nums;
+    for (size_t i = 0; i < nums.size(); i++)
+    {
+        string str = to_string(nums[i]);
+        std::sort(str.begin(), str.end(), std::greater<char>());
+        sorted_nums.push_back(atol(str.c_str()) - (long long)nums[i]);
+    }
+    std::sort(sorted_nums.begin(), sorted_nums.end(), std::greater<long long>());
+    long long result = 0;
+    for (size_t i = 0; i < nums.size(); i++)
+    {
+        result += nums[i];
+    }
+    int n = (int)sorted_nums.size();
+    for (int i = 0; i < k; i++)
+    {
+        if (sorted_nums[i] <= 0) break;
+        result += sorted_nums[i];
+    }
+    return result;
+}
+
+/// <summary>
+/// LeetCode #4097. Minimum Value of Merged Integers
+///
+/// Easy
+/// 
+/// You are given an integer array nums of even length n.
+/// 
+/// You have to merge the elements of nums in pairs by merging nums[0] 
+/// with nums[1], nums[2] with nums[3], and so on, until nums[n - 2] 
+/// with nums[n - 1].
+///
+/// Return the minimum value among all the resulting merged integers.
+///
+/// To merge two integers, concatenate all the decimal digits of the 
+/// first integer followed by all the decimal digits of the second integer.
+///
+/// Example 1:
+/// Input: nums = [23, 55, 42, 21]
+/// Output : 2355
+/// Explanation :
+/// Merging nums[0] = 23 and nums[1] = 55 gives 2355.
+/// Merging nums[2] = 42 and nums[3] = 21 gives 4221.
+/// The minimum value among the merged numbers is min(2355, 4221) = 2355.
+///
+/// Example 2 :
+/// Input : nums = [34, 7, 11, 11]
+/// Output : 347
+/// Explanation :
+/// Merging nums[0] = 34 and nums[1] = 7 gives 347.
+/// Merging nums[2] = 11 and nums[3] = 11 gives 1111.
+/// The minimum value among the merged numbers is min(347, 1111) = 347.
+///
+/// Example 3 :
+/// Input : nums = [9, 20]
+/// Output : 920
+/// Explanation :
+/// Merging nums[0] = 9 and nums[1] = 20 gives 920.
+/// There is only one merged number, so the minimum value is 920.
+///
+/// Constraints :
+/// 1. 2 <= n == nums.length <= 100
+/// 2. n is even
+/// 3. 1 <= nums[i] <= 1000
+/// </summary>
+int LeetCodeMath::minMergedInteger(vector<int>& nums)
+{
+    int result = INT_MAX;
+    for (size_t i = 0; i < nums.size(); i += 2)
+    {
+        string str = to_string(nums[i]) + to_string(nums[i + 1]);
+        int value = atoi(str.c_str());
+        result = min(result, value);
+    }
+    return result;
+}
+
+/// <summary>           
+/// LeetCode #4098. Minimize the Maximum Value of GCD - Connected Array
+///
+/// Medium
+/// 
+/// You are given three integers n, index, and value.
+/// An integer array nums of length n is called GCD - Connected if:
+/// nums[i] > 0 for 0 <= i <= n - 1.
+/// nums[i] < nums[i + 1] for 0 <= i <= n - 2.
+/// nums[index] = value.
+/// gcd(nums[i], nums[i + 1]) > 1 for 0 <= i <= n - 2.
+/// Return the minimum possible maximum value, nums[n - 1], among all 
+/// GCD - Connected arrays nums.If no such array exists, return -1.
+///
+/// Example 1:
+/// Input: n = 4, index = 2, value = 8
+/// Output : 10
+/// Explanation :
+/// The GCD - Connected array will look like : nums = [? , ? , 8, ? ] 
+/// since nums[2] = 8.
+/// Since nums[3] > 8 and gcd(8, 9) = 1, every valid GCD - Connected array 
+/// must have nums[3] >= 10.
+/// One optimal array satisfying all conditions is[2, 4, 8, 10].
+/// Thus, the minimum possible value of nums[3] is 10.
+///
+/// Example 2:
+/// Input: n = 2, index = 1, value = 3
+/// Output : -1
+/// Explanation :
+/// The GCD - Connected array will look like : nums = [? , 3] since 
+/// nums[1] = 3.
+/// Since we need 0 < nums[0] < nums[1] = 3, there are only two possible 
+/// arrays : [1, 3] and [2, 3].Neither of them satisfies gcd(nums[0], 
+/// nums[1]) > 1.
+/// Therefore, no valid GCD - Connected array exists, and the answer is - 1.
+/// 
+/// Example 3 :
+/// Input : n = 2, index = 0, value = 3
+/// Output : 6
+/// Explanation :
+/// The GCD - Connected array will look like : nums = [3, ? ] 
+/// since nums[0] = 3.
+/// Since nums[1] > 3 and gcd(3, 4) = gcd(3, 5) = 1, every valid 
+/// GCD - Connected array must have nums[1] >= 6.
+/// One optimal array is[3, 6].
+/// Thus, the minimum possible value of nums[1] is 6.
+///
+/// Constraints:
+/// 1. 2 <= n <= 10^9
+/// 2. 1 <= value <= 10^9
+/// 3. 0 <= index <= n - 1
+/// </summary>
+long long LeetCodeMath::minimumMaxValue(int n, int index, int value)
+{
+    if (value == 1) return -1;
+    int prime = value;
+    for (int i = 2; i <= (int)sqrt(value); i++)
+    {
+        if (value % i == 0)
+        {
+            prime = i;
+            break;
+        }
+    }
+    int prev_count = value / prime - 1;
+    if (prime > 2)
+    {
+        prev_count = max(prev_count, (value - prime) / 2);
+    }
+    if (prev_count < index)
+    {
+        return -1;
+    }
+    long long result = (long long)value + (long long)(n - 1 - index) * prime;
+    if (index < n - 2 && prime > 2)
+    {
+        result = (long long)value + prime + (long long)(n - 2 - index) * 2;
+    }
+    return result;
+}
+
+
 #pragma endregion
 

@@ -7072,8 +7072,41 @@ void TestLeetCode4046(void)
     Logger::WriteMessage("result = " + to_string(result));
 }
 
+void TestLeetCode4096(void)
+{
+    Logger::WriteMessage("Test Leet Code 4096");
+    LeetCodeGraph leetCode;
+    vector<vector<char>> grid = {{'#', '#', '#'}, {'-', '-', '*'}, {'-', '-', '-'}};
+    vector<vector<char>> result = leetCode.finalGrid(grid);
+    Logger::WriteMessage(grid);
+    Logger::WriteMessage(result);
+
+    grid = {{'-', '*'}, {'#', '-'}};
+    result = leetCode.finalGrid(grid);
+    Logger::WriteMessage(grid);
+    Logger::WriteMessage(result);
+
+    grid = {{'-', '*', '#'}, {'#', '-', '-'}};
+    result = leetCode.finalGrid(grid);
+    Logger::WriteMessage(grid);
+    Logger::WriteMessage(result);
+
+    
+    grid = { {'#', '*', '-', '#'},{'-', '-', '*', '-'} };
+    result = leetCode.finalGrid(grid);
+    Logger::WriteMessage(grid);
+    Logger::WriteMessage(result);
+
+    grid = {{'#', '*', '-'}, {'*', '#', '#'}};
+    result = leetCode.finalGrid(grid);
+    Logger::WriteMessage(grid);
+    Logger::WriteMessage(result);
+}
+
+
 void TestLeetCodeGraph(void)
 {
+    TestLeetCode4096();
     TestLeetCode4046();
     TestLeetCode4023();
     TestLeetCode4004();

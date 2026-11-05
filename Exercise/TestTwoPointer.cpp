@@ -1356,8 +1356,30 @@ void TestLeetCode4076(void)
     Logger::WriteMessage("result = " + to_string(result));
 }
 
+void TestLeetCode4089(void)
+{
+    Logger::WriteMessage("Test Leet Code 4089");
+    LeetCodeTwoPointer leetCode;
+    vector<int> nums = { 1, 4, 7, 3 };
+    int minK = 1;
+    int maxK = 5;
+    long long result = leetCode.countSubarraysMinMax(nums, minK, maxK);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("minK = " + to_string(minK) + ", maxK = " + to_string(maxK));
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = { 1,1 };
+    minK = 1;
+    maxK = 5;
+    result = leetCode.countSubarraysMinMax(nums, minK, maxK);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("minK = " + to_string(minK) + ", maxK = " + to_string(maxK));
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
 void TestLeetCodeTwoPointer(void)
 {
+    TestLeetCode4089();
     TestLeetCode4076();
     TestLeetCode4075();
     TestLeetCode4066();

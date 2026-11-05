@@ -24900,4 +24900,174 @@ int LeetCodeGraph::minCost(vector<vector<int>>& grid, int k)
 }
 
 
+/// <summary>
+/// Leet Code #4096. Simulate Bomb Explosions and Falling Boxes
+/// 
+/// Medium
+///
+/// You are given a 2D character array grid of size m x n, where each cell 
+/// contains one of the following symbols :
+///
+/// '#' : a box.
+/// '-' : an empty cell.
+/// '*' : a bomb.
+/// Each second, the following events occur in order :
+///
+/// Explosions: A bomb explodes if it is orthogonally adjacent to at least 
+/// one box(shares a side with it).An exploding bomb destroys all boxes in 
+/// its 8 neighboring cells, including diagonally adjacent cells, turning 
+/// them into empty cells.All explosions happen simultaneously, based on 
+/// the grid at the beginning of that second.Empty cells and bombs remain 
+/// unchanged.
+/// Gravity : After the explosions, all non - static boxes simultaneously 
+/// fall down by exactly one row.A box is static if it is in the 
+/// bottommost row, immediately above a bomb, or immediately above 
+/// another static box.
+/// Bombs never move or disappear, and the same bomb may explode multiple 
+/// times.Boxes above non - static boxes can fall together with them.
+///
+/// Return the final grid after 10100 seconds.
+///
+/// Example 1:
+/// Input: grid = [["#", "#", "#"], ["-", "-", "*"], ["-", "-", "-"]]
+/// Output : [["-", "-", "-"], ["-", "-", "*"], ["#", "-", "-"]]
+/// Explanation :
+/// Let(r, c) represent the cell in the rth row from the top and cth 
+/// column from the left.For example, (0, 0) denotes the top - left most 
+/// cell.
+/// 
+/// The 1st second :
+///
+/// Since the bomb at(1, 2) is orthogonally adjacent to the box at(0, 2), 
+/// the boxes at(0, 1) and (0, 2) become empty cells.
+/// The box at(0, 0) falls to(1, 0).
+/// The 2nd second :
+/// The bomb at(1, 2) is not orthogonally adjacent to any box.Therefore, 
+/// nothing happens.
+/// The box at(1, 0) falls to(2, 0).
+/// Nothing happens afterwards.
+///
+/// Example 2:
+///
+/// Input: grid = [["-", "*"], ["#", "-"]]
+/// Output : [["-", "*"], ["#", "-"]]
+/// Explanation :
+/// Nothing happens because the bomb is not orthogonally adjacent to any 
+/// box.
+/// 
+/// Example 3 :
+/// Input : grid = [["-", "*", "#"], ["#", "-", "-"]]
+/// Output : [["-", "*", "-"], ["-", "-", "-"]]
+/// Explanation :
+/// The 1st second :
+/// The bomb at(0, 1) is orthogonally adjacent to the box at(0, 2).
+/// Therefore, the boxes at(0, 2) and (1, 0) become empty cells.
+/// Nothing happens afterwards.
+///
+/// Example 4 :
+/// Input : grid = [["#", "*", "-", "#"], ["-", "-", "*", "-"]]
+/// Output : [["-", "*", "-", "-"], ["-", "-", "*", "-"]]
+///
+/// Explanation :
+/// The 1st second :
+/// Since the bomb at(0, 1) is orthogonally adjacent to the box 
+/// at(0, 0), the box at(0, 0) becomes an empty cell.The other bomb 
+/// at(1, 2) is not orthogonally adjacent to any box.
+/// The box at(0, 3) falls to(1, 3).
+/// The 2nd second :
+/// Since the bomb at(1, 2) is orthogonally adjacent to the box at(1, 3), 
+/// the box at(1, 3) becomes an empty cell.The other bomb at(0, 1) is not 
+/// orthogonally adjacent to any box.
+/// Nothing happens afterwards.
+///
+/// Constraints :
+/// 1. 1 <= m == grid.length <= 100
+/// 2. 1 <= n == grid[i].length <= 100
+/// 3. grid[i][j] is '#', '-', or '*'.
+/// </summary>
+vector<vector<char>> LeetCodeGraph::finalGrid(vector<vector<char>>& grid)
+{
+    int m = grid.size();
+    int n = grid[0].size();
+    vector<vector<char>> result = grid;
+    queue<pair<int, int>> box_queue;
+    vector<pair<int, int>> bombs;
+    vector<vector<int>> directions = { { -1, 0 }, {1, 0}, {0, -1}, {0, 1} };
+
+    // find all the bombs
+    for (int i = m - 1; i >= 0; i--)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (grid[i][j] == '*')
+            {
+                bombs.push_back({ i, j });
+            }
+        }
+    }
+
+    // move down all the boxes
+    bool fall = true;
+    queue<pair<int, int>> exploded_bombs;
+    while (fall == true)
+    {
+        for (size_t i = 0; i < bombs.size(); i++)
+        {
+            for (size_t d = 0; d < directions.size(); d++)
+            {
+                int next_row = bombs[i].first + directions[d][0];
+                int next_col = bombs[i].second + directions[d][1];
+                if (next_row < 0 || next_row >= m || next_col < 0 || next_col >= n) continue;
+                if (result[next_row][next_col] == '#')
+                {
+                    exploded_bombs.push(bombs[i]);
+                    break;
+                }
+            }
+        }
+        while (!exploded_bombs.empty())
+        {
+            pair<int, int> bomb = exploded_bombs.front();
+            exploded_bombs.pop();
+            for (int r = bomb.first - 1; r <= bomb.first + 1; r++)
+            {
+                for (int c = bomb.second - 1; c <= bomb.second + 1; c++)
+                {
+                    if (r < 0 || r >= m || c < 0 || c >= n) continue;
+                    if (result[r][c] == '#')
+                    {
+                        result[r][c] = '-';
+                    }
+                }
+            }
+        }
+        // find all the boxes
+        for (int i = m - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (result[i][j] == '#')
+                {
+                    box_queue.push({ i, j });
+                }
+            }
+        }
+        fall = false;
+        int size = box_queue.size();
+        for (int i = 0; i < size; i++)
+        {
+            pair<int, int> box = box_queue.front();
+            box_queue.pop();
+            result[box.first][box.second] = '-';
+            if (box.first < m - 1 && result[box.first + 1][box.second] != '#')
+            {
+                fall = true;
+                box.first++;
+            }
+            result[box.first][box.second] = '#';
+        }
+    }
+    return result;
+}
+
 #pragma endregion

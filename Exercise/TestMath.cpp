@@ -9503,15 +9503,78 @@ void TestLeetCode4079(void)
     Logger::WriteMessage("n = " + to_string(n) + ", s = " + to_string(s));
     Logger::WriteMessage(result);
 
-
     n = 5, s = 1;
     result = leetCode.maxPrimesI(n, s);
     Logger::WriteMessage("n = " + to_string(n) + ", s = " + to_string(s));
     Logger::WriteMessage(result);
 }
 
+void TestLeetCode4093(void)
+{
+    Logger::WriteMessage("Test Leet Code 4093");
+    LeetCodeMath leetCode;
+    vector<int> nums = { 123, 45 };
+    int k = 1;
+    long long result = leetCode.maximizeSumReplaceKDigits(nums, k);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("k = " + to_string(k));
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = { 102, 90, 14 };
+    k = 2;
+    result = leetCode.maximizeSumReplaceKDigits(nums, k);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("k = " + to_string(k));
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
+void TestLeetCode4097(void)
+{
+    Logger::WriteMessage("Test Leet Code 4097");
+    LeetCodeMath leetCode;
+    vector<int> nums = { 23, 55, 42, 21 };
+    int result = leetCode.minMergedInteger(nums);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = { 34,7,11,11 };
+    result = leetCode.minMergedInteger(nums);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = { 9, 20 };
+    result = leetCode.minMergedInteger(nums);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
+void TestLeetCode4098(void)
+{
+    Logger::WriteMessage("Test Leet Code 4098");
+    LeetCodeMath leetCode;
+    int n = 4, index = 2, value = 8;
+    long long result = leetCode.minimumMaxValue(n, index, value);
+    Logger::WriteMessage("n = " + to_string(n) + ", index = " + to_string(index));
+    Logger::WriteMessage("value = " + to_string(value));
+    Logger::WriteMessage("result = " + to_string(result));
+
+    n = 2, index = 1, value = 3;
+    result = leetCode.minimumMaxValue(n, index, value);
+    Logger::WriteMessage("n = " + to_string(n) + ", index = " + to_string(index));
+    Logger::WriteMessage("value = " + to_string(value));
+    Logger::WriteMessage("result = " + to_string(result));
+
+    n = 2, index = 0, value = 3;
+    result = leetCode.minimumMaxValue(n, index, value);
+    Logger::WriteMessage("n = " + to_string(n) + ", index = " + to_string(index));
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
 void TestLeetCodeMath(void)
 {
+    TestLeetCode4098();
+    TestLeetCode4097();
+    TestLeetCode4093();
     TestLeetCode4079();
     TestLeetCode4078();
     TestLeetCode4073();

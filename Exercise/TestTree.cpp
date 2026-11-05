@@ -5075,8 +5075,51 @@ void TestLeetCode4085(void)
     Logger::WriteMessage("result = " + to_string(result));
 }
 
+
+void TestLeetCode4100(void)
+{
+    Logger::WriteMessage("Test Leet Code 4100");
+    LeetCodeTree leetCode;
+    vector<vector<int>> edges = { {0, 1, 4}, {0, 2, 6}, {0, 3, 3}, {3, 4, 5} };
+    vector<int> values = {3, 1, 7, 1, 3};
+    int result = leetCode.minActivationCost(edges, values);
+    Logger::WriteMessage(edges);
+    Logger::WriteMessage(values);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    edges = { {0, 1, 5}, {1, 2, 10} };
+    values = { 1,7,3 };
+    result = leetCode.minActivationCost(edges, values);
+    Logger::WriteMessage(edges);
+    Logger::WriteMessage(values);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    edges = { {0, 1, 5}, {0, 2, 7}, {0, 3, 9} };
+    values = { 1, 3, 5, 9 };
+    result = leetCode.minActivationCost(edges, values);
+    Logger::WriteMessage(edges);
+    Logger::WriteMessage(values);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    edges = { {1, 0, 3}, {2, 1, 6}, {3, 1, 1}, {4, 0, 4}, {5, 1, 8}, {6, 5, 9}, {7, 3, 5} };
+    values = {4, 5, 10, 2, 6, 6, 1, 8};
+    result = leetCode.minActivationCost(edges, values);
+    Logger::WriteMessage(edges);
+    Logger::WriteMessage(values);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    
+    edges = { {1, 0, 7}, {2, 0, 3}, {3, 2, 9}, {4, 0, 9}, {5, 0, 2}, {6, 3, 3} };
+    values = { 7,6,9,9,6,10,8 };
+    result = leetCode.minActivationCost(edges, values);
+    Logger::WriteMessage(edges);
+    Logger::WriteMessage(values);
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
 void TestLeetCodeTree(void)
 {
+    TestLeetCode4100();
     TestLeetCode4085();
     TestLeetCode4018();
     TestLeetCode3997();

@@ -13218,6 +13218,7 @@ public:
     /// Explanation :
     /// It is impossible to reach(1, 1) using k = 0 turns.Thus, the answer 
     /// is - 1.
+    /// 
     /// Constraints :
     /// 1. 1 <= m == grid.length <= 75
     /// 2. 1 <= n == grid[i].length <= 75
@@ -13225,6 +13226,93 @@ public:
     /// 4. 0 <= k < min(m, n)
     /// </summary>
     int minCost(vector<vector<int>>& grid, int k);
+
+    /// <summary>
+    /// Leet Code #4096. Simulate Bomb Explosions and Falling Boxes
+    /// 
+    /// Medium
+    ///
+    /// You are given a 2D character array grid of size m x n, where each cell 
+    /// contains one of the following symbols :
+    ///
+    /// '#' : a box.
+    /// '-' : an empty cell.
+    /// '*' : a bomb.
+    /// Each second, the following events occur in order :
+    ///
+    /// Explosions: A bomb explodes if it is orthogonally adjacent to at least 
+    /// one box(shares a side with it).An exploding bomb destroys all boxes in 
+    /// its 8 neighboring cells, including diagonally adjacent cells, turning 
+    /// them into empty cells.All explosions happen simultaneously, based on 
+    /// the grid at the beginning of that second.Empty cells and bombs remain 
+    /// unchanged.
+    /// Gravity : After the explosions, all non - static boxes simultaneously 
+    /// fall down by exactly one row.A box is static if it is in the 
+    /// bottommost row, immediately above a bomb, or immediately above 
+    /// another static box.
+    /// Bombs never move or disappear, and the same bomb may explode multiple 
+    /// times.Boxes above non - static boxes can fall together with them.
+    ///
+    /// Return the final grid after 10100 seconds.
+    ///
+    /// Example 1:
+    /// Input: grid = [["#", "#", "#"], ["-", "-", "*"], ["-", "-", "-"]]
+    /// Output : [["-", "-", "-"], ["-", "-", "*"], ["#", "-", "-"]]
+    /// Explanation :
+    /// Let(r, c) represent the cell in the rth row from the top and cth 
+    /// column from the left.For example, (0, 0) denotes the top - left most 
+    /// cell.
+    /// 
+    /// The 1st second :
+    ///
+    /// Since the bomb at(1, 2) is orthogonally adjacent to the box at(0, 2), 
+    /// the boxes at(0, 1) and (0, 2) become empty cells.
+    /// The box at(0, 0) falls to(1, 0).
+    /// The 2nd second :
+    /// The bomb at(1, 2) is not orthogonally adjacent to any box.Therefore, 
+    /// nothing happens.
+    /// The box at(1, 0) falls to(2, 0).
+    /// Nothing happens afterwards.
+    ///
+    /// Example 2:
+    ///
+    /// Input: grid = [["-", "*"], ["#", "-"]]
+    /// Output : [["-", "*"], ["#", "-"]]
+    /// Explanation :
+    /// Nothing happens because the bomb is not orthogonally adjacent to any 
+    /// box.
+    /// 
+    /// Example 3 :
+    /// Input : grid = [["-", "*", "#"], ["#", "-", "-"]]
+    /// Output : [["-", "*", "-"], ["-", "-", "-"]]
+    /// Explanation :
+    /// The 1st second :
+    /// The bomb at(0, 1) is orthogonally adjacent to the box at(0, 2).
+    /// Therefore, the boxes at(0, 2) and (1, 0) become empty cells.
+    /// Nothing happens afterwards.
+    ///
+    /// Example 4 :
+    /// Input : grid = [["#", "*", "-", "#"], ["-", "-", "*", "-"]]
+    /// Output : [["-", "*", "-", "-"], ["-", "-", "*", "-"]]
+    ///
+    /// Explanation :
+    /// The 1st second :
+    /// Since the bomb at(0, 1) is orthogonally adjacent to the box 
+    /// at(0, 0), the box at(0, 0) becomes an empty cell.The other bomb 
+    /// at(1, 2) is not orthogonally adjacent to any box.
+    /// The box at(0, 3) falls to(1, 3).
+    /// The 2nd second :
+    /// Since the bomb at(1, 2) is orthogonally adjacent to the box at(1, 3), 
+    /// the box at(1, 3) becomes an empty cell.The other bomb at(0, 1) is not 
+    /// orthogonally adjacent to any box.
+    /// Nothing happens afterwards.
+    ///
+    /// Constraints :
+    /// 1. 1 <= m == grid.length <= 100
+    /// 2. 1 <= n == grid[i].length <= 100
+    /// 3. grid[i][j] is '#', '-', or '*'.
+    /// </summary>
+    vector<vector<char>> finalGrid(vector<vector<char>>& grid);
 
 #pragma endregion
 };

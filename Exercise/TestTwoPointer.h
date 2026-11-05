@@ -64,5 +64,6 @@ void TestLeetCode4032(void);
 void TestLeetCode4063(void);
 void TestLeetCode4066(void);
 void TestLeetCode4075(void);
+void TestLeetCode4089(void);
 void TestLeetCodeTwoPointer(void);
 #endif  // TestStack_H

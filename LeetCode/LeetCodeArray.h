@@ -30044,5 +30044,311 @@ public:
     /// 2. -100 <= nums[i], target <= 100
     /// </summary>
     vector<int> maxProductPair(vector<int>& nums, int target);
+
+    /// <summary>
+    /// Leet Code #4088. Difference Between Peaks and Valleys
+    /// 
+    /// Easy
+    /// 
+    /// You are given an integer array nums of length n.
+    /// An index i is called a peak if all of the following conditions hold :
+    /// 0 < i < n - 1
+    /// nums[i] > nums[i - 1]
+    /// nums[i] > nums[i + 1]
+    ///
+    /// An index i is called a valley if all of the following conditions hold :
+    /// 0 < i < n - 1
+    /// nums[i] < nums[i - 1]
+    /// nums[i] < nums[i + 1]
+    /// Return an integer denoting the difference between the sum of all peak 
+    /// values and the sum of all valley values.
+    ///
+    /// Example 1:
+    /// Input: nums = [1, 5, 2, 4, 1, 3, 0]
+    /// Output : 9
+    /// Explanation :
+    /// The peak values are nums[1] = 5, nums[3] = 4, and nums[5] = 3.
+    /// The valley values are nums[2] = 2 and nums[4] = 1.
+    /// The difference between the sum of the peak values and the sum of the 
+    /// valley values is(5 + 4 + 3) - (2 + 1) = 9. Hence, the answer is 9.
+    ///
+    /// Example 2 :
+    /// Input : nums = [-5, -6, -1, -2, 5, 3, 2]
+    /// Output : 12
+    /// Explanation :
+    /// The peak values are nums[2] = -1 and nums[4] = 5.
+    /// The valley values are nums[1] = -6 and nums[3] = -2.
+    /// The difference between the sum of the peak values and the sum of the 
+    /// valley values is(-1 + 5) - (-6 + (-2)) = 12. Hence, the answer is 12.
+    /// 
+    /// Example 3 :
+    /// Input : nums = [6, 5, 2, 5, 5, 3, 6]
+    /// Output : -5
+    /// Explanation :
+    /// There are no peak values in the array.
+    /// The valley values are nums[2] = 2 and nums[5] = 3.
+    /// The difference between the sum of the peak values and the sum of the 
+    /// valley values is(0) - (2 + 3) = -5. Hence, the answer is - 5.
+    ///
+    /// Constraints :
+    /// 1. 3 <= n == nums.length <= 100
+    /// 2. - 100 <= nums[i] <= 100
+    /// </summary>
+    int peakValleyDifference(vector<int>& nums);
+
+    /// <summary>
+    /// Leet Code #4094. Count Frequency Staircase Subarrays I
+    /// 
+    /// Medium
+    /// 
+    /// You are given an integer array nums.
+    ///
+    /// Consider the distinct values of a subarray in the order in which 
+    /// they first appear.
+    ///
+    /// If there are k distinct values, the subarray is called a 
+    /// frequency staircase if the first distinct value occurs exactly once, 
+    /// the second distinct value occurs exactly twice, and so on, with the 
+    /// kth distinct value occurring exactly k times.
+    /// Equivalently, the frequencies of the distinct values, in the order of 
+    /// their first occurrence, must be exactly 1, 2, 3, ..., k.
+    ///
+    /// Return the number of frequency staircase subarrays in nums.
+    ///
+    /// A subarray is a contiguous non - empty sequence of elements within an 
+    /// array.
+    ///
+    /// The frequency of a value in a subarray is the number of times it 
+    /// occurs in that subarray.
+    ///
+    /// Example 1:
+    /// Input: nums = [5, 8, 8, 2, 2, 2]
+    /// Output : 9
+    /// Explanation :
+    /// Every single - element subarray has frequencies[1], and there are 6 of 
+    /// them. 3 longer subarrays also qualify :
+    /// Subarray  Values by first appearance  Frequencies
+    /// nums[0...2] = [5, 8, 8]  5, then 8[1, 2]
+    /// nums[2...4] = [8, 2, 2]  8, then 2[1, 2]
+    /// nums[0...5] = [5, 8, 8, 2, 2, 2]  5, then 8, then 2[1, 2, 3]
+    /// So the answer is 6 + 3 = 9.
+    ///
+    /// Example 2:
+    /// Input: nums = [6, 6, 9, 9]
+    /// Output : 5
+    /// Explanation :
+    /// Every single - element subarray has frequencies[1], and there are 4 of 
+    /// them. 1 longer subarray also qualifies :
+    /// Subarray  Values by first appearance  Frequencies
+    /// nums[1...3] = [6, 9, 9]  6, then 9[1, 2]
+    /// So the answer is 4 + 1 = 5.
+    ///
+    /// Example 3:
+    /// Input: nums = [2, 3, 4, 4, 3, 4]
+    /// Output : 8
+    /// Explanation :
+    /// Every single - element subarray has frequencies[1], and there are 6 of 
+    /// them. 2 longer subarrays also qualify :
+    /// Subarray  Values by first appearance  Frequencies
+    /// nums[1...3] = [3, 4, 4]  3, then 4[1, 2]
+    /// nums[0...5] = [2, 3, 4, 4, 3, 4]  2, then 3, then 4[1, 2, 3]
+    /// So the answer is 6 + 2 = 8.
+    ///
+    /// Constraints:
+    /// 1. 1 <= nums.length <= 1500
+    /// 2. 1 <= nums[i] <= 10
+    /// </summary>
+    int countStaircaseI(vector<int>& nums);
+
+    /// <summary>
+    /// Leet Code #4095. Count Frequency Staircase Subarrays II
+    /// 
+    /// Hard
+    /// 
+    /// You are given an integer array nums.
+    ///
+    /// Consider the distinct values of a subarray in the order in which they 
+    /// first appear.
+    ///
+    /// If there are k distinct values, the subarray is called a frequency 
+    /// staircase if the first distinct value occurs exactly once, the second 
+    /// distinct value occurs exactly twice, and so on, with the kth distinct 
+    /// value occurring exactly k times.
+    /// Equivalently, the frequencies of the distinct values, in the order of 
+    /// their first occurrence, must be exactly 1, 2, 3, ..., k.
+    ///
+    /// Return the number of frequency staircase subarrays in nums.
+    /// 
+    /// A subarray is a contiguous non - empty sequence of elements within an 
+    /// array.
+    ///
+    /// The frequency of a value in a subarray is the number of times it 
+    /// occurs in that subarray.
+    ///
+    /// Example 1:
+    /// Input: nums = [5, 8, 8, 2, 2, 2]
+    /// Output : 9
+    /// Explanation :
+    /// Every single - element subarray has frequencies[1], and there are 6 
+    /// of them. 3 longer subarrays also qualify :
+    ///
+    /// Subarray  Values by first appearance  Frequencies
+    /// nums[0...2] = [5, 8, 8]  5, then 8[1, 2]
+    /// nums[2...4] = [8, 2, 2]  8, then 2[1, 2]
+    /// nums[0...5] = [5, 8, 8, 2, 2, 2]  5, then 8, then 2[1, 2, 3]
+    /// So the answer is 6 + 3 = 9.
+    ///
+    /// Example 2:
+    /// Input: nums = [6, 6, 9, 9]
+    /// Output : 5
+    /// Explanation :
+    /// Every single - element subarray has frequencies[1], and there are 4 
+    /// of them. 1 longer subarray also qualifies :
+    /// 
+    /// Subarray  Values by first appearance  Frequencies
+    /// nums[1...3] = [6, 9, 9]  6, then 9[1, 2]
+    /// So the answer is 4 + 1 = 5.
+    /// Example 3:
+    /// Input: nums = [2, 3, 4, 4, 3, 4]
+    /// Output : 8
+    /// Explanation :
+    /// Every single - element subarray has frequencies[1], and there are 6 
+    /// of them. 2 longer subarrays also qualify :
+    /// Subarray  Values by first appearance  Frequencies
+    /// nums[1...3] = [3, 4, 4]  3, then 4[1, 2]
+    /// nums[0...5] = [2, 3, 4, 4, 3, 4]  2, then 3, then 4[1, 2, 3]
+    /// So the answer is 6 + 2 = 8.
+    ///
+    /// Constraints:
+    /// 1. 1 <= nums.length <= 5 * 10^4
+    /// 2. 1 <= nums[i] <= 10^5
+    /// </summary>
+    int countStaircaseII(vector<int>& nums);
+
+    /// <summary>
+    /// Leet Code #4090. Count Magical Substring Pairs I
+    /// 
+    /// Medium
+    /// 
+    /// You are given a string s of length n consisting of lowercase English 
+    /// letters.
+    ///
+    /// For every triplet of indices(i, j, k) satisfying 0 <= i <= j < k < n, 
+    /// define:
+    ///
+    /// s1 = s[i..j]
+    /// s2 = s[j + 1..k]
+    /// A pair of substrings(s1, s2) is called magical if the number of 
+    /// distinct characters in s1 is equal to the number of distinct 
+    /// characters in s2.
+    /// Return the number of triplets(i, j, k) for which(s1, s2) is a magical 
+    /// pair.
+    ///
+    /// A substring is a contiguous non - empty sequence of characters within 
+    /// a string.
+    ///
+    /// Example 1:
+    /// Input: s = "aba"
+    /// Output : 2
+    /// Explanation :
+    /// There are 2 valid triplets :
+    /// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+    /// 1  (0, 0, 1)  "a"  "b"  1  1
+    /// 2  (1, 1, 2)  "b"  "a"  1  1
+    ///
+    /// Example 2 :
+    /// Input : s = "kkk"
+    /// Output : 4
+    /// Explanation :
+    /// There are 4 valid triplets :
+    /// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+    /// 1  (0, 0, 1)  "k"  "k"  1  1
+    /// 2  (0, 0, 2)  "k"  "kk"  1  1
+    /// 3  (0, 1, 2)  "kk"  "k"  1  1
+    /// 4  (1, 1, 2)  "k"  "k"  1  1
+    ///
+    /// Example 3:
+    /// Input: s = "abcac"
+    /// Output : 7
+    /// Explanation :
+    /// There are 7 valid triplets :
+    ///
+    /// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+    /// 1  (0, 0, 1)  "a"  "b"  1  1
+    /// 2  (1, 1, 2)  "b"  "c"  1  1
+    /// 3  (2, 2, 3)  "c"  "a"  1  1
+    /// 4  (3, 3, 4)  "a"  "c"  1  1
+    /// 5  (0, 1, 3)  "ab"  "ca"  2  2
+    /// 6  (0, 1, 4)  "ab"  "cac"  2  2
+    /// 7  (1, 2, 4)  "bc"  "ac"  2  2
+    ///
+    /// Constraints:
+    /// 1. 2 <= s.length <= 2000
+    /// 2. s consists of lowercase English letters.
+    /// </summary>
+    int countMagicalPairsI(string s);
+
+    /// <summary>
+    /// Leet Code #4091. Count Magical Substring Pairs II
+    /// 
+    /// Hard
+    ///     
+    /// You are given a string s of length n consisting of lowercase English 
+    /// letters.
+    ///
+    /// For every triplet of indices(i, j, k) satisfying 0 <= i <= j < k < n, 
+    /// define:
+    ///
+    /// s1 = s[i..j]
+    /// s2 = s[j + 1..k]
+    /// A pair of substrings(s1, s2) is called magical if the number of 
+    /// distinct characters in s1 is equal to the number of distinct 
+    /// characters in s2.
+    ///
+    /// Return the number of triplets(i, j, k) for which(s1, s2) is a magical 
+    /// pair.
+    ///
+    /// A substring is a contiguous non - empty sequence of characters within 
+    /// a string.
+    ///
+    /// Example 1:
+    /// Input: s = "aba"
+    /// Output : 2
+    /// Explanation :
+    /// There are 2 valid triplets :
+    /// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+    /// 1  (0, 0, 1)  "a"  "b"  1  1
+    /// 2  (1, 1, 2)  "b"  "a"  1  1
+    /// 
+    /// Example 2 :
+    /// Input : s = "kkk"
+    /// Output : 4
+    /// Explanation :
+    /// There are 4 valid triplets :
+    /// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+    /// 1  (0, 0, 1)  'k'  'k'  1  1
+    /// 2  (0, 0, 2)  "k"  "kk"  1  1
+    /// 3  (0, 1, 2)  "kk"  "k"  1  1
+    /// 4  (1, 1, 2)  "k"  "k"  1  1
+    ///
+    /// Example 3:
+    /// Input: s = "abcac"
+    /// Output : 7
+    /// Explanation :
+    /// There are 7 valid triplets :
+    /// No.  (i, j, k)  s1  s2  distinct(s1)  distinct(s2)
+    /// 1  (0, 0, 1)  "a"  "b"  1  1
+    /// 2  (1, 1, 2)  "b"  "c"  1  1
+    /// 3  (2, 2, 3)  "c"  "a"  1  1
+    /// 4  (3, 3, 4)  "a"  "c"  1  1
+    /// 5  (0, 1, 3)  "ab"  "ca"  2  2
+    /// 6  (0, 1, 4)  "ab"  "cac"  2  2
+    /// 7  (1, 2, 4)  "bc"  "ac"  2  2
+    ///
+    /// Constraints:
+    /// 1. 2 <= s.length <= 10^5
+    /// 2. s consists of lowercase English letters.
+    /// </summary>
+    long long countMagicalPairsII(string s);
 };
 #endif  // LeetCodeArray_H

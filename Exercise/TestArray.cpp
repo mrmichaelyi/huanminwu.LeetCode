@@ -14327,8 +14327,92 @@ void TestLeetCode4074(void)
     Logger::WriteMessage(result);
 }
 
+void TestLeetCode4088(void)
+{
+    Logger::WriteMessage("Test Leet Code 4088");
+    LeetCodeArray leetCode;
+    vector<int> nums = { 1, 5, 2, 4, 1, 3, 0 };
+    int result = leetCode.peakValleyDifference(nums);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = { -5,-6,-1,-2,5,3,2 };
+    result = leetCode.peakValleyDifference(nums);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = { 6,5,2,5,5,3,6 };
+    result = leetCode.peakValleyDifference(nums);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
+void TestLeetCode4094(void)
+{
+    Logger::WriteMessage("Test Leet Code 4094");
+    LeetCodeArray leetCode;
+    vector<int> nums = { 5,8,8,2,2,2 };
+    int result = leetCode.countStaircaseI(nums);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = { 6,6,9,9 };
+    result = leetCode.countStaircaseI(nums);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    nums = { 2,3,4,4,3,4 };
+    result = leetCode.countStaircaseI(nums);
+    Logger::WriteMessage(nums);
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
+void TestLeetCode4090(void)
+{
+    Logger::WriteMessage("Test Leet Code 4090");
+    LeetCodeArray leetCode;
+    string s = "aba";
+    int result = leetCode.countMagicalPairsI(s);
+    Logger::WriteMessage("s = " + s);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    s = "kkk";
+    result = leetCode.countMagicalPairsI(s);
+    Logger::WriteMessage("s = " + s);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    s = "abcac";
+    result = leetCode.countMagicalPairsI(s);
+    Logger::WriteMessage("s = " + s);
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
+void TestLeetCode4091(void)
+{
+    Logger::WriteMessage("Test Leet Code 4091");
+    LeetCodeArray leetCode;
+    string s = "aba";
+    long long result = leetCode.countMagicalPairsII(s);
+    Logger::WriteMessage("s = " + s);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    s = "kkk";
+    result = leetCode.countMagicalPairsII(s);
+    Logger::WriteMessage("s = " + s);
+    Logger::WriteMessage("result = " + to_string(result));
+
+    s = "abcac";
+    result = leetCode.countMagicalPairsII(s);
+    Logger::WriteMessage("s = " + s);
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
 void TestLeetCodeArray(void)
 {
+    TestLeetCode4091();
+    TestLeetCode4090();
+    TestLeetCode4094();
+    TestLeetCode4088();
     TestLeetCode4074();
     TestLeetCode4072();
     TestLeetCode4064();

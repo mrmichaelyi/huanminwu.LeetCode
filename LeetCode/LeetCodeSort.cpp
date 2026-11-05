@@ -17379,7 +17379,7 @@ long long LeetCodeSort::maxSumWithKSwap(vector<int>& nums, int length, int k)
         in_heap.insert({ nums[i], i });
         sum += nums[i];
         out_heap.erase({ nums[i], i });
-        if (i >= (size_t)length)
+        if (i >= length)
         {
             int prev = i - length;
             sum -= nums[prev];
@@ -17402,5 +17402,82 @@ long long LeetCodeSort::maxSumWithKSwap(vector<int>& nums, int length, int k)
         }
     }
     return result;
+}
+
+/// <summary>
+/// Leet code #4099. Minimum Operations to Sort With Locked Indices
+///                  
+/// Medium
+///
+/// You are given an integer array nums of length n, where nums is a 
+/// permutation of the integers in the range[1, n].
+///
+/// You are also given a binary array locked of length n and an integer k.
+///
+/// locked[i] = 1 means index i is locked.
+/// locked[i] = 0 means index i is unlocked.
+/// You may perform the following operations in any order :
+/// Swap: Choose an index i such that both indices i and i + 1 are 
+/// currently unlocked, and swap nums[i] and nums[i + 1].
+/// Unlock : Choose an index i such that locked[i] = 1 and permanently 
+/// unlock it by setting locked[i] = 0.
+/// You may perform any number of swap operations but at most k unlock 
+/// operations.
+///
+/// Return the minimum total number of operations required to sort nums 
+/// in strictly increasing order.If it is impossible, return -1.
+///
+/// Example 1:
+/// Input: nums = [2, 1, 3, 4], locked = [0, 1, 0, 1], k = 1
+/// Output : 2
+/// Explanation :
+///
+/// Unlock index 1. The array locked becomes[0, 0, 0, 1].
+/// Swap nums[0] and nums[1].The array nums becomes[1, 2, 3, 4].
+/// The total number of operations is 1 + 1 = 2.
+///
+/// Example 2:
+/// Input: nums = [3, 1, 2], locked = [1, 0, 1], k = 2
+/// Output : 4
+/// Explanation :
+/// Unlock indices 0 and 2. All indices are now unlocked.
+/// Swap indices 0 and 1. The array nums becomes[1, 3, 2].
+/// Swap indices 1 and 2. The array nums becomes[1, 2, 3].
+/// The total number of operations is 2 + 2 = 4.
+///
+/// Example 3:
+/// Input: nums = [2, 3, 1], locked = [1, 0, 0], k = 0
+/// Output : -1 
+/// Explanation :
+///
+/// Index 0 is locked, so its value cannot be moved.Since k = 0, no indices 
+/// can be unlocked.Therefore, sorting the array is impossible.
+///
+/// Constraints:
+///
+/// 1. 1 <= n == nums.length == locked.length <= 2000
+/// 2. 1 <= nums[i] <= n
+/// 3. 0 <= locked[i] <= 1
+/// 4. nums is a permutation of the integers in the range[1, n].
+/// 5. 0 <= k <= n
+/// </summary>
+int LeetCodeSort::minOperationsSortLockedIndices(vector<int>& nums, vector<int>& locked, int k)
+{
+    int n = nums.size();
+    int lock_sumcount = 0;
+    BinaryIndexTree bit(n+1);
+    int result = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int swaps = (int)(bit.sum(n) - bit.sum(nums[i]));
+        if (swaps > 0 || nums[i] != i + 1)
+        {
+            lock_sumcount += locked[i];
+        }
+        result += swaps;
+        bit.add(nums[i], 1);
+    }
+    if (lock_sumcount > k) return -1;
+    return result + lock_sumcount;
 }
 #pragma endregion

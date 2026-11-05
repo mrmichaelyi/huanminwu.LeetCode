@@ -5040,5 +5040,55 @@ public:
     /// 4. 1 <= targetIntervals[j][0] <= targetIntervals[j][1] <= 105
     /// </summary>
     int minSelection(vector<vector<int>>& availableIntervals, vector<vector<int>>& targetIntervals);
- };
+
+    /// <summary>
+    /// Leet Code #4101. Find All Numbers Disappeared in an Array III
+    /// 
+    /// Medium
+    ///
+    /// You are given an integer array nums and two integers lower and upper.
+    /// An integer is missing if it lies in the inclusive range[lower, upper] 
+    /// and does not appear in nums.
+    ///
+    /// Return a 2D integer array representing all missing integers grouped 
+    /// into contiguous ranges.Represent each range as[start, end], including 
+    /// both endpoints, and return the ranges in increasing order of start.
+    ///
+    /// Consecutive missing integers must belong to the same range.If there 
+    /// are no missing integers, return an empty array.
+    ///
+    /// Example 1:
+    /// Input: nums = [3, 9, 7], lower = 1, upper = 12
+    /// Output : [[1, 2], [4, 6], [8, 8], [10, 12]]
+    /// Explanation :
+    /// The missing integers are[1, 2, 4, 5, 6, 8, 10, 11, 12].
+    /// Grouping the missing integers into the minimum number of contiguous 
+    /// ranges, we get[1, 2], [4, 6], [8, 8], and [10, 12].
+    /// Therefore, the answer is [[1, 2], [4, 6], [8, 8], [10, 12]] .
+    ///
+    /// Example 2 :
+    /// Input : nums = [1, 1, 1000000000], lower = 5, upper = 1000000000
+    /// Output : [[5, 999999999]]
+    /// Explanation :
+    /// The value 1 lies outside[lower, upper], so it does not cover any 
+    /// integer in the range.
+    /// The only integer of the range that appears in nums is 1000000000.
+    /// Every integer from 5 to 999999999 is missing, and they are 
+    /// consecutive, so they form the single range[5, 999999999].
+    /// 
+    /// Example 3 :
+    /// Input : nums = [2, 3, 5], lower = 2, upper = 3
+    /// Output : []
+    ///
+    /// Explanation :
+    /// Both 2 and 3 appear in nums, so there are no missing integers.
+    /// Therefore, the answer is[].
+    /// 
+    /// Constraints :
+    /// 1. 1 <= nums.length <= 10^5
+    /// 2. 1 <= nums[i] <= 10^9
+    /// 3. 1 <= lower <= upper <= 10^9
+    /// </summary>
+    vector<vector<int>> findDisappearedNumbersIII(vector<int>& nums, int lower, int upper);
+};
 #endif  // LeetCodeGreedy_H

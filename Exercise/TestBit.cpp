@@ -1989,6 +1989,27 @@ void TestLeetCode4083(void)
     Logger::WriteMessage("result = " + to_string(result));
 }
 
+void TestLeetCode4092(void)
+{
+    Logger::WriteMessage("Test Leet Code 4092");
+    LeetCodeBit leetCode;
+    int a = 14, b = 6;
+    int result = leetCode.calculateScore(a, b);
+    Logger::WriteMessage("a = " + to_string(a) + "; b = " + to_string(b));
+    Logger::WriteMessage("result = " + to_string(result));
+
+    a = 5, b = 15;
+    result = leetCode.calculateScore(a, b);
+    Logger::WriteMessage("a = " + to_string(a) + "; b = " + to_string(b));
+    Logger::WriteMessage("result = " + to_string(result));
+
+    a = 10, b = 12;
+    result = leetCode.calculateScore(a, b);
+    Logger::WriteMessage("a = " + to_string(a) + "; b = " + to_string(b));
+    Logger::WriteMessage("result = " + to_string(result));
+}
+
+
 void TestLeetCodeBit(void)
 {
     TestLeetCode4083();
